@@ -1,0 +1,1704 @@
+{
+  "stats": {
+    "suites": 20,
+    "tests": 38,
+    "passes": 28,
+    "pending": 0,
+    "failures": 10,
+    "testsRegistered": 38,
+    "passPercent": 73.6842105263158,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false,
+    "start": "2023-05-29T01:52:52.192Z",
+    "end": "2023-05-29T02:02:53.059Z",
+    "duration": 600867
+  },
+  "results": [
+    {
+      "uuid": "6d1e19c9-f2f1-4065-9daf-2a039bf6dfe6",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\api_get.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\api_get.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1a60136f-5f34-49ce-b0d7-e795d1e84450",
+          "title": "Example to demonstrate API Testing in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Hit an API End point and validate its response status code and body",
+              "fullTitle": "Example to demonstrate API Testing in cypress Hit an API End point and validate its response status code and body",
+              "timedOut": null,
+              "duration": 1466,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: 'GET',\n  url: 'https://randomuser.me/api/',\n  qs: 'results=1'\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property('info');\n  expect(response.body.info).to.have.property('version', '1.3');\n});",
+              "err": {
+                "message": "AssertionError: expected { Object (seed, results, ...) } to have property 'version' of '1.3', but got '1.4'",
+                "estack": "AssertionError: expected { Object (seed, results, ...) } to have property 'version' of '1.3', but got '1.4'\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/api_get.cy.js:11:47)",
+                "diff": "- '1.4'\n+ '1.3'\n"
+              },
+              "uuid": "c7fdc21d-0658-477b-8f02-3f94a1eaf71f",
+              "parentUUID": "1a60136f-5f34-49ce-b0d7-e795d1e84450",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "c7fdc21d-0658-477b-8f02-3f94a1eaf71f"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1466,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "64b153c2-0227-41cb-91b9-d650edae4901",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\chaining_api.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\chaining_api.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "cb61b901-eead-43c6-81c0-d95d986066ee",
+          "title": "Example to demonstrate API Chaining in Cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Chain two API requests and validate the response",
+              "fullTitle": "Example to demonstrate API Chaining in Cypress Chain two API requests and validate the response",
+              "timedOut": null,
+              "duration": 605,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "//Part 1\ncy.request({\n  method: 'GET',\n  url: 'https://www.metaweather.com/api/location/search/?query=sn'\n}).then(response => {\n  const location = response.body[0].title;\n  return location;\n})\n//Part 2\n.then(location => {\n  cy.request({\n    method: 'GET',\n    url: 'https://www.metaweather.com/api/location/search/?query=' + location\n  }).then(response => {\n    expect(response.status).to.eq(200);\n    expect(response.body[0]).to.have.property('title', location);\n  });\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://www.metaweather.com/api/location/search/?query=sn\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://www.metaweather.com/api/location/search/?query=sn\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/12.13.0 Chrome/106.0.5249.51 Electron/21.0.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"content-length\": \"272\",\n  \"content-type\": \"text/html; charset=UTF-8\",\n  \"date\": \"Mon, 29 May 2023 01:53:15 GMT\"\n}\nBody: \n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 Page not found</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Page not found</h1>\n<h2>The requested URL was not found on this server.</h2>\n<h2></h2>\n</body></html>\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://www.metaweather.com/api/location/search/?query=sn\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://www.metaweather.com/api/location/search/?query=sn\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Cypress/12.13.0 Chrome/106.0.5249.51 Electron/21.0.0 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"content-length\": \"272\",\n  \"content-type\": \"text/html; charset=UTF-8\",\n  \"date\": \"Mon, 29 May 2023 01:53:15 GMT\"\n}\nBody: \n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 Page not found</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Page not found</h1>\n<h2>The requested URL was not found on this server.</h2>\n<h2></h2>\n</body></html>\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:60683/__cypress/runner/cypress_runner.js:149154:80)\n    at tryCatcher (http://localhost:60683/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise._settlePromiseFromHandler (http://localhost:60683/__cypress/runner/cypress_runner.js:16679:31)\n    at Promise._settlePromise (http://localhost:60683/__cypress/runner/cypress_runner.js:16736:18)\n    at Promise._settlePromise0 (http://localhost:60683/__cypress/runner/cypress_runner.js:16781:10)\n    at Promise._settlePromises (http://localhost:60683/__cypress/runner/cypress_runner.js:16861:18)\n    at _drainQueueStep (http://localhost:60683/__cypress/runner/cypress_runner.js:13451:12)\n    at _drainQueue (http://localhost:60683/__cypress/runner/cypress_runner.js:13444:9)\n    at ../../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost:60683/__cypress/runner/cypress_runner.js:13460:5)\n    at Async.drainQueues (http://localhost:60683/__cypress/runner/cypress_runner.js:13330:14)\nFrom Your Spec Code:\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/chaining_api.cy.js:5:11)",
+                "diff": null
+              },
+              "uuid": "af822517-89a7-4242-9205-776d2a44b753",
+              "parentUUID": "cb61b901-eead-43c6-81c0-d95d986066ee",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "af822517-89a7-4242-9205-776d2a44b753"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 605,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "44cb02b3-7594-4793-978b-aa736a1e08d4",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\downloadfile.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\downloadfile.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "767b8268-4e86-4d21-9338-518951160459",
+          "title": "Example to demonstrate file download in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "File Download using cypress-downloadfile npm package",
+              "fullTitle": "Example to demonstrate file download in cypress File Download using cypress-downloadfile npm package",
+              "timedOut": null,
+              "duration": 199,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.downloadFile('https://www.learningcontainer.com/wp-content/uploads/2020/04/sample-text-file.txt', 'cypress/fixtures/Download', 'test.txt');\ncy.readFile('cypress/fixtures/Download/test.txt').should('contain', 'Lorem ipsum dolor sit amet');",
+              "err": {
+                "message": "TypeError: cy.downloadFile is not a function",
+                "estack": "TypeError: cy.downloadFile is not a function\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/downloadfile.cy.js:4:11)",
+                "diff": null
+              },
+              "uuid": "7fdbb0a1-15d8-4fc9-8015-42544f71a176",
+              "parentUUID": "767b8268-4e86-4d21-9338-518951160459",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "7fdbb0a1-15d8-4fc9-8015-42544f71a176"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 199,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "d189faa8-a871-4e9f-bf01-efcd16423f72",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\fileupload.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\fileupload.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1d22e33b-446f-4cee-a5d6-30f864eb7191",
+          "title": "Example to demonstrate file upload in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "File Upload using cypress-file-upload npm package",
+              "fullTitle": "Example to demonstrate file upload in cypress File Upload using cypress-file-upload npm package",
+              "timedOut": null,
+              "duration": 2976,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const filepath = 'images/evening.png';\ncy.get('input[type=\"file\"]').attachFile(filepath);\ncy.get('#file-submit').click();\ncy.get('#uploaded-files').contains('evening.png');",
+              "err": {
+                "message": "TypeError: cy.get(...).attachFile is not a function",
+                "estack": "TypeError: cy.get(...).attachFile is not a function\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/fileupload.cy.js:8:37)",
+                "diff": null
+              },
+              "uuid": "0775f2ce-0559-48e7-a2eb-e61326606126",
+              "parentUUID": "1d22e33b-446f-4cee-a5d6-30f864eb7191",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "0775f2ce-0559-48e7-a2eb-e61326606126"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2976,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "b4798267-cfd8-486d-a966-7aca475c16b2",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\file_operations.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\file_operations.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a3006b4e-b9eb-4807-93c3-0289374d3211",
+          "title": "Example for writeFile and readFile",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Write to a text file test1.txt using writeFile",
+              "fullTitle": "Example for writeFile and readFile Write to a text file test1.txt using writeFile",
+              "timedOut": null,
+              "duration": 523,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test1.txt', 'Testmaster.com\\n');",
+              "err": {},
+              "uuid": "6fea45f4-9832-4dbb-a479-02d3d1da38f9",
+              "parentUUID": "a3006b4e-b9eb-4807-93c3-0289374d3211",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Append content to the end of the text file test1.txt using the flag a+",
+              "fullTitle": "Example for writeFile and readFile Append content to the end of the text file test1.txt using the flag a+",
+              "timedOut": null,
+              "duration": 45,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test1.txt', 'Info Hub for Testers', {\n  flag: 'a+'\n});",
+              "err": {},
+              "uuid": "fdf7cf2a-7341-4b25-923a-21f9f495528f",
+              "parentUUID": "a3006b4e-b9eb-4807-93c3-0289374d3211",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Write to a JSON file test2.json using writeFile",
+              "fullTitle": "Example for writeFile and readFile Write to a JSON file test2.json using writeFile",
+              "timedOut": null,
+              "duration": 42,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test2.json', {\n  firstname: 'sadasiva',\n  lastname: 'kuppaswamy'\n});\n// cy.writeFile('cypress/fixtures/test2.json', { firstname: 'sarala', lastname: 'muniyappa' },{flag:'a+'})",
+              "err": {},
+              "uuid": "602f54f6-981c-4129-85c1-efc36fd19820",
+              "parentUUID": "a3006b4e-b9eb-4807-93c3-0289374d3211",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Validate the content of both text and JSON file using readFile",
+              "fullTitle": "Example for writeFile and readFile Validate the content of both text and JSON file using readFile",
+              "timedOut": null,
+              "duration": 64,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.readFile('cypress/fixtures/test1.txt').should('contain', 'Testmaster');\ncy.readFile('cypress/fixtures/test1.txt').should('eq', 'Testmaster.com\\nInfo Hub for Testers');\ncy.readFile('cypress/fixtures/test2.json').its('firstname').should('eq', 'sadasiva');",
+              "err": {},
+              "uuid": "75f244d1-d2ee-4a35-896d-033184acaebc",
+              "parentUUID": "a3006b4e-b9eb-4807-93c3-0289374d3211",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6fea45f4-9832-4dbb-a479-02d3d1da38f9",
+            "fdf7cf2a-7341-4b25-923a-21f9f495528f",
+            "602f54f6-981c-4129-85c1-efc36fd19820",
+            "75f244d1-d2ee-4a35-896d-033184acaebc"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 674,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "5d0379a8-b9db-4ba9-80fc-41d57304fb4d",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\fixtures_test.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\fixtures_test.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "debf1977-56a1-406d-9191-9b98fed0e55d",
+          "title": "Fixtures verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "5bdcab6c-a4f7-4016-8aed-9c58efc01db5",
+              "title": "Verify fixtures",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Validate successful Login",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate successful Login",
+                  "timedOut": null,
+                  "duration": 16054,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('input[name=\"username\"]').type(this.testdata.username);\ncy.get('input[name=\"password\"]').type(this.testdata.password);\ncy.get('button[type=\"submit\"]').click();\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').should('have.text', this.testdata.welcomeText);\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').contains(this.testdata.welcomeText);",
+                  "err": {},
+                  "uuid": "fa302560-b1a3-415a-998a-f8c27c71f3d1",
+                  "parentUUID": "5bdcab6c-a4f7-4016-8aed-9c58efc01db5",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "fa302560-b1a3-415a-998a-f8c27c71f3d1"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 16054,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "23556579-3a8a-49e1-80ea-ca0fc48b900b",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\foreach.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\foreach.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "64d445de-3a7d-4b0c-9641-c67f1d2c1360",
+          "title": "Fixtures verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "cede06f9-1a17-483c-a868-ebf720244846",
+              "title": "Verify fixtures",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Validate successful Login",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate successful Login",
+                  "timedOut": null,
+                  "duration": 9664,
+                  "state": "passed",
+                  "speed": "medium",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('input[name=\"username\"]').type(this.testdata.username);\ncy.get('input[name=\"password\"]').type(this.testdata.password);\ncy.get('button[type=\"submit\"]').click();\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').should('have.text', this.testdata.welcomeText);\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').contains(this.testdata.welcomeText);",
+                  "err": {},
+                  "uuid": "d33a8e85-6225-49aa-b5f0-3eb8ff15b2c4",
+                  "parentUUID": "cede06f9-1a17-483c-a868-ebf720244846",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Validate all the Quick Launch Texts",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate all the Quick Launch Texts",
+                  "timedOut": null,
+                  "duration": 3163,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('div[class=\"orangehrm-quick-launch-heading\"] > p').each(($el, index) => {\n  expect($el).to.contain(this.testdata.quickLaunch[index]);\n});",
+                  "err": {},
+                  "uuid": "bc7fc5b5-d913-4c3b-b10f-264cecea0f85",
+                  "parentUUID": "cede06f9-1a17-483c-a868-ebf720244846",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "d33a8e85-6225-49aa-b5f0-3eb8ff15b2c4",
+                "bc7fc5b5-d913-4c3b-b10f-264cecea0f85"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 12827,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "e1644217-dba5-415e-b7c9-5da57cb1ac87",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\googlesearch.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\googlesearch.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "f4a16d61-e30c-43d6-9909-47dab5c0fe7e",
+          "title": "GoogleSearch",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "2cf70fea-85a1-4f6b-b708-9f2d3a8da65f",
+              "title": "Verify search in google and search results shown",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "verify title",
+                  "fullTitle": "GoogleSearch Verify search in google and search results shown verify title",
+                  "timedOut": null,
+                  "duration": 2662,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.title().should('eq', 'Google');",
+                  "err": {},
+                  "uuid": "a13b9d01-3dc5-431c-9877-740b754dcf1f",
+                  "parentUUID": "2cf70fea-85a1-4f6b-b708-9f2d3a8da65f",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "search for cypress",
+                  "fullTitle": "GoogleSearch Verify search in google and search results shown search for cypress",
+                  "timedOut": null,
+                  "duration": 22074,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('textarea[title=\"Search\"]').type('Cypress tutorial');\ncy.wait(100);\ncy.get('input[value=\"Google Search\"]').click({\n  multiple: true\n});",
+                  "err": {
+                    "message": "CypressError: Timed out retrying after 10100ms: `cy.click()` failed because the page updated while this command was executing. Cypress tried to locate elements based on this query:\n\n> cy.get(input[value=\"Google Search\"])\n\nWe initially found matching element(s), but while waiting for them to become actionable, they disappeared from the page. Common situations why this happens:\n  - Your JS framework re-rendered asynchronously\n  - Your app code reacted to an event firing and removed the element\n\nYou can typically solve this by breaking up a chain. For example, rewrite:\n\n> `cy.get('button').click().click()`\n\nto\n\n> `cy.get('button').as('btn').click()`\n> `cy.get('@btn').click()`\n\nhttps://on.cypress.io/element-has-detached-from-dom",
+                    "estack": "CypressError: Timed out retrying after 10100ms: `cy.click()` failed because the page updated while this command was executing. Cypress tried to locate elements based on this query:\n\n> cy.get(input[value=\"Google Search\"])\n\nWe initially found matching element(s), but while waiting for them to become actionable, they disappeared from the page. Common situations why this happens:\n  - Your JS framework re-rendered asynchronously\n  - Your app code reacted to an event firing and removed the element\n\nYou can typically solve this by breaking up a chain. For example, rewrite:\n\n> `cy.get('button').click().click()`\n\nto\n\n> `cy.get('button').as('btn').click()`\n> `cy.get('@btn').click()`\n\nhttps://on.cypress.io/element-has-detached-from-dom\n    at retryActionability (https://www.google.com/__cypress/runner/cypress_runner.js:140046:82)\n    at tryCatcher (https://www.google.com/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise.attempt.Promise.try (https://www.google.com/__cypress/runner/cypress_runner.js:16018:29)\n    at whenStable (https://www.google.com/__cypress/runner/cypress_runner.js:156168:65)\n    at <unknown> (https://www.google.com/__cypress/runner/cypress_runner.js:155609:14)\n    at tryCatcher (https://www.google.com/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise._settlePromiseFromHandler (https://www.google.com/__cypress/runner/cypress_runner.js:16679:31)\n    at Promise._settlePromise (https://www.google.com/__cypress/runner/cypress_runner.js:16736:18)\n    at Promise._settlePromise0 (https://www.google.com/__cypress/runner/cypress_runner.js:16781:10)\n    at Promise._settlePromises (https://www.google.com/__cypress/runner/cypress_runner.js:16861:18)\n    at Promise._fulfill (https://www.google.com/__cypress/runner/cypress_runner.js:16805:18)\n    at <unknown> (https://www.google.com/__cypress/runner/cypress_runner.js:18419:46)\nFrom Your Spec Code:\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/googlesearch.cy.js:14:51)",
+                    "diff": null
+                  },
+                  "uuid": "32143b70-8e06-48aa-968f-648d386a0fed",
+                  "parentUUID": "2cf70fea-85a1-4f6b-b708-9f2d3a8da65f",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "a13b9d01-3dc5-431c-9877-740b754dcf1f"
+              ],
+              "failures": [
+                "32143b70-8e06-48aa-968f-648d386a0fed"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 24736,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "8eb5b73f-da71-4f54-863f-6d80fe38fafd",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\ifelse.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\ifelse.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "b694e5a4-3c11-4a1b-a738-d14ad3ee0d1e",
+          "title": "Example to demo conditional testing in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Check that if you find WikiVoyage on the page, then click on it and validate (Go to If)",
+              "fullTitle": "Example to demo conditional testing in cypress Check that if you find WikiVoyage on the page, then click on it and validate (Go to If)",
+              "timedOut": null,
+              "duration": 6082,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.title().should('eq', 'Wikipedia');\ncy.get('body').then(body => {\n  if (body.find('[data-jsl10n=\"wikivoyage.name\"]').length > 0) {\n    cy.get('[data-jsl10n=\"wikivoyage.name\"]').click();\n  } else {\n    cy.get('[data-jsl10n=\"wiktionary.name\"]').click();\n  }\n});\ncy.title().should('eq', 'Wikivoyage');",
+              "err": {},
+              "uuid": "2899f37a-a748-47d3-9af4-82677eaa85c5",
+              "parentUUID": "b694e5a4-3c11-4a1b-a738-d14ad3ee0d1e",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Check that if you dont find WikiVoyage in the page, then click on Wiktionary and validate (Go to Else)",
+              "fullTitle": "Example to demo conditional testing in cypress Check that if you dont find WikiVoyage in the page, then click on Wiktionary and validate (Go to Else)",
+              "timedOut": null,
+              "duration": 4319,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.title().should('eq', 'Wikipedia');\ncy.get('body').then(body => {\n  if (body.find('wrongLocator').length > 0) {\n    cy.get('[data-jsl10n=\"wikivoyage.name\"]').click();\n  } else {\n    cy.get('[data-jsl10n=\"wiktionary.name\"]').click();\n  }\n});\ncy.title().should('eq', 'Wiktionary');",
+              "err": {},
+              "uuid": "d2c868dd-7ac7-4e85-a814-77410ad3d6a4",
+              "parentUUID": "b694e5a4-3c11-4a1b-a738-d14ad3ee0d1e",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2899f37a-a748-47d3-9af4-82677eaa85c5",
+            "d2c868dd-7ac7-4e85-a814-77410ad3d6a4"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 10401,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "5bb3bb26-5a04-45c3-921d-9e522c8daa27",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\alert.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\alert.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "45b54214-47cc-4478-b6e8-92c8850007d5",
+          "title": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Handling JS Alert - Validate Alert Text and Click OK",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Alert - Validate Alert Text and Click OK",
+              "timedOut": null,
+              "duration": 2594,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Alert').click();\ncy.on('window:alert', str => {\n  expect(str).to.equal('I am a JS Alert');\n});\ncy.on('window:confirm', () => true);\ncy.get('#result').should('have.text', 'You successfully clicked an alert');",
+              "err": {},
+              "uuid": "02991d2c-151f-400a-9066-7596dc6ae6df",
+              "parentUUID": "45b54214-47cc-4478-b6e8-92c8850007d5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Confirm - Validate Confirm Text and Click OK",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Confirm - Validate Confirm Text and Click OK",
+              "timedOut": null,
+              "duration": 1066,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Confirm').click();\ncy.on('window:confirm', str => {\n  expect(str).to.equal(`I am a JS Confirm`);\n});\ncy.on('window:confirm', () => true);\ncy.get('#result').should('have.text', 'You clicked: Ok');",
+              "err": {},
+              "uuid": "d591017a-f9d5-4b82-9430-838c38d178d9",
+              "parentUUID": "45b54214-47cc-4478-b6e8-92c8850007d5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Confirm - Click Cancel",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Confirm - Click Cancel",
+              "timedOut": null,
+              "duration": 1023,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Confirm').click();\ncy.on('window:confirm', () => false);\ncy.get('#result').should('have.text', 'You clicked: Cancel');",
+              "err": {},
+              "uuid": "b75b8b98-3505-4185-a17d-77641663df71",
+              "parentUUID": "45b54214-47cc-4478-b6e8-92c8850007d5",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Prompt - Input text in prompt, Click OK and Validate Input Text",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Prompt - Input text in prompt, Click OK and Validate Input Text",
+              "timedOut": null,
+              "duration": 1250,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.window().then($win => {\n  debugger;\n  cy.stub($win, 'prompt').returns('This is a test text');\n  cy.contains('Click for JS Prompt').click();\n});\ncy.get('#result').should('have.text', 'You entered: This is a test text');",
+              "err": {},
+              "uuid": "27dd661e-9086-43d4-a25f-0821af9088ab",
+              "parentUUID": "45b54214-47cc-4478-b6e8-92c8850007d5",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "02991d2c-151f-400a-9066-7596dc6ae6df",
+            "d591017a-f9d5-4b82-9430-838c38d178d9",
+            "b75b8b98-3505-4185-a17d-77641663df71",
+            "27dd661e-9086-43d4-a25f-0821af9088ab"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 5933,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "6c299259-ebb6-4323-a1d4-1bfa437312c1",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\api_get.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\api_get.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "73b93afb-0247-4960-984e-256780774ef8",
+          "title": "Example to demonstrate API Testing in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Hit an API End point and validate its response status code and body",
+              "fullTitle": "Example to demonstrate API Testing in cypress Hit an API End point and validate its response status code and body",
+              "timedOut": null,
+              "duration": 1026,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.request({\n  method: 'GET',\n  url: 'https://randomuser.me/api/',\n  qs: 'results=1'\n}).then(response => {\n  expect(response.status).to.eq(200);\n  expect(response.body).to.have.property('info');\n  expect(response.body.info).to.have.property('version', '1.3');\n});",
+              "err": {
+                "message": "AssertionError: expected { Object (seed, results, ...) } to have property 'version' of '1.3', but got '1.4'",
+                "estack": "AssertionError: expected { Object (seed, results, ...) } to have property 'version' of '1.3', but got '1.4'\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/api_get.cy.js:11:47)",
+                "diff": "- '1.4'\n+ '1.3'\n"
+              },
+              "uuid": "eb20e92a-b2a5-4937-b0b7-719889d70430",
+              "parentUUID": "73b93afb-0247-4960-984e-256780774ef8",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "eb20e92a-b2a5-4937-b0b7-719889d70430"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1026,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "60eb2a9b-6fd3-4206-9dcc-f7b4aa6098bf",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\chaining_api.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\chaining_api.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "80f218b1-3821-48e9-be46-828970393a46",
+          "title": "Example to demonstrate API Chaining in Cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Chain two API requests and validate the response",
+              "fullTitle": "Example to demonstrate API Chaining in Cypress Chain two API requests and validate the response",
+              "timedOut": null,
+              "duration": 1670,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "//Part 1\ncy.request({\n  method: 'GET',\n  url: 'https://www.metaweather.com/api/location/search/?query=sn'\n}).then(response => {\n  const location = response.body[0].title;\n  return location;\n})\n//Part 2\n.then(location => {\n  cy.request({\n    method: 'GET',\n    url: 'https://www.metaweather.com/api/location/search/?query=' + location\n  }).then(response => {\n    expect(response.status).to.eq(200);\n    expect(response.body[0]).to.have.property('title', location);\n  });\n});",
+              "err": {
+                "message": "CypressError: `cy.request()` failed on:\n\nhttps://www.metaweather.com/api/location/search/?query=sn\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://www.metaweather.com/api/location/search/?query=sn\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/113.0.5672.127 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"content-length\": \"272\",\n  \"content-type\": \"text/html; charset=UTF-8\",\n  \"date\": \"Mon, 29 May 2023 02:00:33 GMT\"\n}\nBody: \n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 Page not found</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Page not found</h1>\n<h2>The requested URL was not found on this server.</h2>\n<h2></h2>\n</body></html>\n\nhttps://on.cypress.io/request",
+                "estack": "CypressError: `cy.request()` failed on:\n\nhttps://www.metaweather.com/api/location/search/?query=sn\n\nThe response we received from your web server was:\n\n  > 404: Not Found\n\nThis was considered a failure because the status code was not `2xx` or `3xx`.\n\nIf you do not want status codes to cause failures pass the option: `failOnStatusCode: false`\n\n-----------------------------------------------------------\n\nThe request we sent was:\n\nMethod: GET\nURL: https://www.metaweather.com/api/location/search/?query=sn\nHeaders: {\n  \"Connection\": \"keep-alive\",\n  \"user-agent\": \"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/113.0.5672.127 Safari/537.36\",\n  \"accept\": \"*/*\",\n  \"accept-encoding\": \"gzip, deflate\"\n}\n\n-----------------------------------------------------------\n\nThe response we got was:\n\nStatus: 404 - Not Found\nHeaders: {\n  \"content-length\": \"272\",\n  \"content-type\": \"text/html; charset=UTF-8\",\n  \"date\": \"Mon, 29 May 2023 02:00:33 GMT\"\n}\nBody: \n<html><head>\n<meta http-equiv=\"content-type\" content=\"text/html;charset=utf-8\">\n<title>404 Page not found</title>\n</head>\n<body text=#000000 bgcolor=#ffffff>\n<h1>Error: Page not found</h1>\n<h2>The requested URL was not found on this server.</h2>\n<h2></h2>\n</body></html>\n\nhttps://on.cypress.io/request\n    at <unknown> (http://localhost:61422/__cypress/runner/cypress_runner.js:149154:80)\n    at tryCatcher (http://localhost:61422/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise._settlePromiseFromHandler (http://localhost:61422/__cypress/runner/cypress_runner.js:16679:31)\n    at Promise._settlePromise (http://localhost:61422/__cypress/runner/cypress_runner.js:16736:18)\n    at Promise._settlePromise0 (http://localhost:61422/__cypress/runner/cypress_runner.js:16781:10)\n    at Promise._settlePromises (http://localhost:61422/__cypress/runner/cypress_runner.js:16861:18)\n    at _drainQueueStep (http://localhost:61422/__cypress/runner/cypress_runner.js:13451:12)\n    at _drainQueue (http://localhost:61422/__cypress/runner/cypress_runner.js:13444:9)\n    at ../../node_modules/bluebird/js/release/async.js.Async._drainQueues (http://localhost:61422/__cypress/runner/cypress_runner.js:13460:5)\n    at Async.drainQueues (http://localhost:61422/__cypress/runner/cypress_runner.js:13330:14)\nFrom Your Spec Code:\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/chaining_api.cy.js:5:11)",
+                "diff": null
+              },
+              "uuid": "d7c3a5a4-79b4-40eb-9ecb-c9ba2ca3d873",
+              "parentUUID": "80f218b1-3821-48e9-be46-828970393a46",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "d7c3a5a4-79b4-40eb-9ecb-c9ba2ca3d873"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 1670,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "7fbfcc10-e053-4c4e-b993-b79570c51b5e",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\downloadfile.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\downloadfile.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "dbc9d91a-75d6-437c-8c2a-f1fc9c674552",
+          "title": "Example to demonstrate file download in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "File Download using cypress-downloadfile npm package",
+              "fullTitle": "Example to demonstrate file download in cypress File Download using cypress-downloadfile npm package",
+              "timedOut": null,
+              "duration": 192,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "cy.downloadFile('https://www.learningcontainer.com/wp-content/uploads/2020/04/sample-text-file.txt', 'cypress/fixtures/Download', 'test.txt');\ncy.readFile('cypress/fixtures/Download/test.txt').should('contain', 'Lorem ipsum dolor sit amet');",
+              "err": {
+                "message": "TypeError: cy.downloadFile is not a function",
+                "estack": "TypeError: cy.downloadFile is not a function\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/downloadfile.cy.js:4:11)",
+                "diff": null
+              },
+              "uuid": "ed4e9652-1b0d-4067-8f5b-d825e0d3e388",
+              "parentUUID": "dbc9d91a-75d6-437c-8c2a-f1fc9c674552",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "ed4e9652-1b0d-4067-8f5b-d825e0d3e388"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 192,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "a836ae2b-f26a-4e57-a829-33c8bda68835",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\fileupload.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\fileupload.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "df89f74d-e441-4976-b679-71b55e186453",
+          "title": "Example to demonstrate file upload in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "File Upload using cypress-file-upload npm package",
+              "fullTitle": "Example to demonstrate file upload in cypress File Upload using cypress-file-upload npm package",
+              "timedOut": null,
+              "duration": 2641,
+              "state": "failed",
+              "speed": null,
+              "pass": false,
+              "fail": true,
+              "pending": false,
+              "context": null,
+              "code": "const filepath = 'images/evening.png';\ncy.get('input[type=\"file\"]').attachFile(filepath);\ncy.get('#file-submit').click();\ncy.get('#uploaded-files').contains('evening.png');",
+              "err": {
+                "message": "TypeError: cy.get(...).attachFile is not a function",
+                "estack": "TypeError: cy.get(...).attachFile is not a function\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/fileupload.cy.js:8:37)",
+                "diff": null
+              },
+              "uuid": "6a65b7ac-0cbc-45e3-95f8-770641aa5f8e",
+              "parentUUID": "df89f74d-e441-4976-b679-71b55e186453",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [],
+          "failures": [
+            "6a65b7ac-0cbc-45e3-95f8-770641aa5f8e"
+          ],
+          "pending": [],
+          "skipped": [],
+          "duration": 2641,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "b35ffbb9-0bfb-4c2c-b86e-e49af413fb92",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\file_operations.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\file_operations.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "88086614-8cd5-42d0-94a4-a06a7bf6ce3d",
+          "title": "Example for writeFile and readFile",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Write to a text file test1.txt using writeFile",
+              "fullTitle": "Example for writeFile and readFile Write to a text file test1.txt using writeFile",
+              "timedOut": null,
+              "duration": 503,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test1.txt', 'Testmaster.com\\n');",
+              "err": {},
+              "uuid": "2c17db72-cbff-4e00-b78d-93aa2607436b",
+              "parentUUID": "88086614-8cd5-42d0-94a4-a06a7bf6ce3d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Append content to the end of the text file test1.txt using the flag a+",
+              "fullTitle": "Example for writeFile and readFile Append content to the end of the text file test1.txt using the flag a+",
+              "timedOut": null,
+              "duration": 73,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test1.txt', 'Info Hub for Testers', {\n  flag: 'a+'\n});",
+              "err": {},
+              "uuid": "4734c774-e1ff-407d-8fb2-1d11486bd727",
+              "parentUUID": "88086614-8cd5-42d0-94a4-a06a7bf6ce3d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Write to a JSON file test2.json using writeFile",
+              "fullTitle": "Example for writeFile and readFile Write to a JSON file test2.json using writeFile",
+              "timedOut": null,
+              "duration": 60,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.writeFile('cypress/fixtures/test2.json', {\n  firstname: 'sadasiva',\n  lastname: 'kuppaswamy'\n});\n// cy.writeFile('cypress/fixtures/test2.json', { firstname: 'sarala', lastname: 'muniyappa' },{flag:'a+'})",
+              "err": {},
+              "uuid": "e36bf47c-2158-40e2-8392-6dd1505618ae",
+              "parentUUID": "88086614-8cd5-42d0-94a4-a06a7bf6ce3d",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Validate the content of both text and JSON file using readFile",
+              "fullTitle": "Example for writeFile and readFile Validate the content of both text and JSON file using readFile",
+              "timedOut": null,
+              "duration": 125,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.readFile('cypress/fixtures/test1.txt').should('contain', 'Testmaster');\ncy.readFile('cypress/fixtures/test1.txt').should('eq', 'Testmaster.com\\nInfo Hub for Testers');\ncy.readFile('cypress/fixtures/test2.json').its('firstname').should('eq', 'sadasiva');",
+              "err": {},
+              "uuid": "dab24b63-33d5-4542-b8ca-35df000b24e8",
+              "parentUUID": "88086614-8cd5-42d0-94a4-a06a7bf6ce3d",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "2c17db72-cbff-4e00-b78d-93aa2607436b",
+            "4734c774-e1ff-407d-8fb2-1d11486bd727",
+            "e36bf47c-2158-40e2-8392-6dd1505618ae",
+            "dab24b63-33d5-4542-b8ca-35df000b24e8"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 761,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "c72b04e0-481f-45b9-b3ee-0c8674190051",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\fixtures_test.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\fixtures_test.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "a2ffb112-433a-40ca-83ce-45be18467aac",
+          "title": "Fixtures verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "8a251f41-4b0e-4060-9d10-caa0164621f8",
+              "title": "Verify fixtures",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Validate successful Login",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate successful Login",
+                  "timedOut": null,
+                  "duration": 26253,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('input[name=\"username\"]').type(this.testdata.username);\ncy.get('input[name=\"password\"]').type(this.testdata.password);\ncy.get('button[type=\"submit\"]').click();\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').should('have.text', this.testdata.welcomeText);\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').contains(this.testdata.welcomeText);",
+                  "err": {},
+                  "uuid": "881e6c8c-b118-4ae8-94c2-af28c9eb8610",
+                  "parentUUID": "8a251f41-4b0e-4060-9d10-caa0164621f8",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "881e6c8c-b118-4ae8-94c2-af28c9eb8610"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 26253,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "9f7da255-4733-473e-ba26-f355bdf933cd",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\foreach.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\foreach.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "43e104b2-bcb7-457e-a1db-0ef8173ce1d6",
+          "title": "Fixtures verification",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "41db5b12-bc30-47c7-8bb9-1fa8c2d88847",
+              "title": "Verify fixtures",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Validate successful Login",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate successful Login",
+                  "timedOut": null,
+                  "duration": 13035,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('input[name=\"username\"]').type(this.testdata.username);\ncy.get('input[name=\"password\"]').type(this.testdata.password);\ncy.get('button[type=\"submit\"]').click();\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').should('have.text', this.testdata.welcomeText);\ncy.get('h6[class=\"oxd-text oxd-text--h6 oxd-topbar-header-breadcrumb-module\"]').contains(this.testdata.welcomeText);",
+                  "err": {},
+                  "uuid": "ba684b13-0854-4eb1-878c-089e36e71a8c",
+                  "parentUUID": "41db5b12-bc30-47c7-8bb9-1fa8c2d88847",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "Validate all the Quick Launch Texts",
+                  "fullTitle": "Fixtures verification Verify fixtures Validate all the Quick Launch Texts",
+                  "timedOut": null,
+                  "duration": 1544,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('div[class=\"orangehrm-quick-launch-heading\"] > p').each(($el, index) => {\n  expect($el).to.contain(this.testdata.quickLaunch[index]);\n});",
+                  "err": {},
+                  "uuid": "a980a087-617e-4fa4-abd2-a676a0e02e82",
+                  "parentUUID": "41db5b12-bc30-47c7-8bb9-1fa8c2d88847",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "ba684b13-0854-4eb1-878c-089e36e71a8c",
+                "a980a087-617e-4fa4-abd2-a676a0e02e82"
+              ],
+              "failures": [],
+              "pending": [],
+              "skipped": [],
+              "duration": 14579,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "812594d5-229f-4c1b-8cde-da4b322dcdeb",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\googlesearch.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\googlesearch.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "4be77238-6d61-4987-97ee-bc0fa66cc57c",
+          "title": "GoogleSearch",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "e3288a36-aa32-4254-90f0-6b4ab57d186f",
+              "title": "Verify search in google and search results shown",
+              "fullFile": "",
+              "file": "",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "verify title",
+                  "fullTitle": "GoogleSearch Verify search in google and search results shown verify title",
+                  "timedOut": null,
+                  "duration": 3240,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.title().should('eq', 'Google');",
+                  "err": {},
+                  "uuid": "799ad13d-10ca-41f0-9796-e9deeff8556c",
+                  "parentUUID": "e3288a36-aa32-4254-90f0-6b4ab57d186f",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "search for cypress",
+                  "fullTitle": "GoogleSearch Verify search in google and search results shown search for cypress",
+                  "timedOut": null,
+                  "duration": 16379,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "cy.get('textarea[title=\"Search\"]').type('Cypress tutorial');\ncy.wait(100);\ncy.get('input[value=\"Google Search\"]').click({\n  multiple: true\n});",
+                  "err": {
+                    "message": "CypressError: Timed out retrying after 10100ms: `cy.click()` failed because the page updated while this command was executing. Cypress tried to locate elements based on this query:\n\n> cy.get(input[value=\"Google Search\"])\n\nWe initially found matching element(s), but while waiting for them to become actionable, they disappeared from the page. Common situations why this happens:\n  - Your JS framework re-rendered asynchronously\n  - Your app code reacted to an event firing and removed the element\n\nYou can typically solve this by breaking up a chain. For example, rewrite:\n\n> `cy.get('button').click().click()`\n\nto\n\n> `cy.get('button').as('btn').click()`\n> `cy.get('@btn').click()`\n\nhttps://on.cypress.io/element-has-detached-from-dom",
+                    "estack": "CypressError: Timed out retrying after 10100ms: `cy.click()` failed because the page updated while this command was executing. Cypress tried to locate elements based on this query:\n\n> cy.get(input[value=\"Google Search\"])\n\nWe initially found matching element(s), but while waiting for them to become actionable, they disappeared from the page. Common situations why this happens:\n  - Your JS framework re-rendered asynchronously\n  - Your app code reacted to an event firing and removed the element\n\nYou can typically solve this by breaking up a chain. For example, rewrite:\n\n> `cy.get('button').click().click()`\n\nto\n\n> `cy.get('button').as('btn').click()`\n> `cy.get('@btn').click()`\n\nhttps://on.cypress.io/element-has-detached-from-dom\n    at retryActionability (https://www.google.com/__cypress/runner/cypress_runner.js:140046:82)\n    at tryCatcher (https://www.google.com/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise.attempt.Promise.try (https://www.google.com/__cypress/runner/cypress_runner.js:16018:29)\n    at whenStable (https://www.google.com/__cypress/runner/cypress_runner.js:156168:65)\n    at <unknown> (https://www.google.com/__cypress/runner/cypress_runner.js:155609:14)\n    at tryCatcher (https://www.google.com/__cypress/runner/cypress_runner.js:18744:23)\n    at Promise._settlePromiseFromHandler (https://www.google.com/__cypress/runner/cypress_runner.js:16679:31)\n    at Promise._settlePromise (https://www.google.com/__cypress/runner/cypress_runner.js:16736:18)\n    at Promise._settlePromise0 (https://www.google.com/__cypress/runner/cypress_runner.js:16781:10)\n    at Promise._settlePromises (https://www.google.com/__cypress/runner/cypress_runner.js:16861:18)\n    at Promise._fulfill (https://www.google.com/__cypress/runner/cypress_runner.js:16805:18)\n    at <unknown> (https://www.google.com/__cypress/runner/cypress_runner.js:18419:46)\nFrom Your Spec Code:\n    at Context.eval (webpack:///./cypress/e2e/cypress_tutorial/googlesearch.cy.js:14:51)",
+                    "diff": null
+                  },
+                  "uuid": "b2b6e588-b0d5-4c01-8a30-151f07837837",
+                  "parentUUID": "e3288a36-aa32-4254-90f0-6b4ab57d186f",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [
+                "799ad13d-10ca-41f0-9796-e9deeff8556c"
+              ],
+              "failures": [
+                "b2b6e588-b0d5-4c01-8a30-151f07837837"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 19619,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "357ab8f2-66f9-450b-8765-8bd3ddc45059",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\ifelse.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\ifelse.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "474c2e6e-6d9c-4c35-871b-157cfe7654e8",
+          "title": "Example to demo conditional testing in cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Check that if you find WikiVoyage on the page, then click on it and validate (Go to If)",
+              "fullTitle": "Example to demo conditional testing in cypress Check that if you find WikiVoyage on the page, then click on it and validate (Go to If)",
+              "timedOut": null,
+              "duration": 6030,
+              "state": "passed",
+              "speed": "medium",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.title().should('eq', 'Wikipedia');\ncy.get('body').then(body => {\n  if (body.find('[data-jsl10n=\"wikivoyage.name\"]').length > 0) {\n    cy.get('[data-jsl10n=\"wikivoyage.name\"]').click();\n  } else {\n    cy.get('[data-jsl10n=\"wiktionary.name\"]').click();\n  }\n});\ncy.title().should('eq', 'Wikivoyage');",
+              "err": {},
+              "uuid": "6a6d69b2-d4fc-4d7f-ae76-2f2d7e111d65",
+              "parentUUID": "474c2e6e-6d9c-4c35-871b-157cfe7654e8",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Check that if you dont find WikiVoyage in the page, then click on Wiktionary and validate (Go to Else)",
+              "fullTitle": "Example to demo conditional testing in cypress Check that if you dont find WikiVoyage in the page, then click on Wiktionary and validate (Go to Else)",
+              "timedOut": null,
+              "duration": 4411,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.title().should('eq', 'Wikipedia');\ncy.get('body').then(body => {\n  if (body.find('wrongLocator').length > 0) {\n    cy.get('[data-jsl10n=\"wikivoyage.name\"]').click();\n  } else {\n    cy.get('[data-jsl10n=\"wiktionary.name\"]').click();\n  }\n});\ncy.title().should('eq', 'Wiktionary');",
+              "err": {},
+              "uuid": "e470122f-ebf3-45d7-b6ec-0bd8dae51057",
+              "parentUUID": "474c2e6e-6d9c-4c35-871b-157cfe7654e8",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "6a6d69b2-d4fc-4d7f-ae76-2f2d7e111d65",
+            "e470122f-ebf3-45d7-b6ec-0bd8dae51057"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 10441,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    },
+    {
+      "uuid": "45b42b6f-245c-4743-9d23-a8810b3b41aa",
+      "title": "",
+      "fullFile": "cypress\\e2e\\cypress_tutorial\\alert.cy.js",
+      "file": "cypress\\e2e\\cypress_tutorial\\alert.cy.js",
+      "beforeHooks": [],
+      "afterHooks": [],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "1c9cb74f-122e-4ba2-a267-20fe22276aa0",
+          "title": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress",
+          "fullFile": "",
+          "file": "",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [
+            {
+              "title": "Handling JS Alert - Validate Alert Text and Click OK",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Alert - Validate Alert Text and Click OK",
+              "timedOut": null,
+              "duration": 3012,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Alert').click();\ncy.on('window:alert', str => {\n  expect(str).to.equal('I am a JS Alert');\n});\ncy.on('window:confirm', () => true);\ncy.get('#result').should('have.text', 'You successfully clicked an alert');",
+              "err": {},
+              "uuid": "250b63ce-f1a9-4946-b9cb-f82867310b65",
+              "parentUUID": "1c9cb74f-122e-4ba2-a267-20fe22276aa0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Confirm - Validate Confirm Text and Click OK",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Confirm - Validate Confirm Text and Click OK",
+              "timedOut": null,
+              "duration": 1956,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Confirm').click();\ncy.on('window:confirm', str => {\n  expect(str).to.equal(`I am a JS Confirm`);\n});\ncy.on('window:confirm', () => true);\ncy.get('#result').should('have.text', 'You clicked: Ok');",
+              "err": {},
+              "uuid": "868275b8-05ec-40ea-a565-de6df299a49f",
+              "parentUUID": "1c9cb74f-122e-4ba2-a267-20fe22276aa0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Confirm - Click Cancel",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Confirm - Click Cancel",
+              "timedOut": null,
+              "duration": 1036,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.contains('Click for JS Confirm').click();\ncy.on('window:confirm', () => false);\ncy.get('#result').should('have.text', 'You clicked: Cancel');",
+              "err": {},
+              "uuid": "641b7af0-6524-445b-b450-f5f82120f3e1",
+              "parentUUID": "1c9cb74f-122e-4ba2-a267-20fe22276aa0",
+              "isHook": false,
+              "skipped": false
+            },
+            {
+              "title": "Handling JS Prompt - Input text in prompt, Click OK and Validate Input Text",
+              "fullTitle": "Example to demonstrate handling of JavaScript Alerts, Confirm, Prompt in Cypress Handling JS Prompt - Input text in prompt, Click OK and Validate Input Text",
+              "timedOut": null,
+              "duration": 904,
+              "state": "passed",
+              "speed": "fast",
+              "pass": true,
+              "fail": false,
+              "pending": false,
+              "context": null,
+              "code": "cy.window().then($win => {\n  debugger;\n  cy.stub($win, 'prompt').returns('This is a test text');\n  cy.contains('Click for JS Prompt').click();\n});\ncy.get('#result').should('have.text', 'You entered: This is a test text');",
+              "err": {},
+              "uuid": "14447a76-c9d5-4f5b-999d-b5df25a06b72",
+              "parentUUID": "1c9cb74f-122e-4ba2-a267-20fe22276aa0",
+              "isHook": false,
+              "skipped": false
+            }
+          ],
+          "suites": [],
+          "passes": [
+            "250b63ce-f1a9-4946-b9cb-f82867310b65",
+            "868275b8-05ec-40ea-a565-de6df299a49f",
+            "641b7af0-6524-445b-b450-f5f82120f3e1",
+            "14447a76-c9d5-4f5b-999d-b5df25a06b72"
+          ],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 6908,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
+    }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "7.0.1"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "mochawesome",
+        "saveHtml": false,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "overwrite": false,
+        "html": false,
+        "json": true
+      },
+      "version": "6.2.0"
+    }
+  }
+}
